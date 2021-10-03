@@ -1,0 +1,7 @@
+"use strict";
+describe("TEST GROUP", function () {
+    it("TEST EXAMPLE IT", function () {
+        console.log("TEST CONTENT");
+    });
+});
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiYXBpLnNwZWMuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyIuLi8uLi90ZXN0L2FwaS5zcGVjLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7QUFDQSxRQUFRLENBQUMsWUFBWSxFQUFFO0lBQ3JCLEVBQUUsQ0FBQyxpQkFBaUIsRUFBRTtRQUVwQixPQUFPLENBQUMsR0FBRyxDQUFDLGNBQWMsQ0FBQyxDQUFDO0lBQzlCLENBQUMsQ0FBQyxDQUFDO0FBQ0wsQ0FBQyxDQUFDLENBQUMifQ==

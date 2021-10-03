@@ -1,0 +1,25 @@
+version: "3"
+services:
+  traine_app:
+    networks:
+      - api_server_default
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      ENV_NAME: dev
+      PORT: 7001
+    ports:
+      - 8081:7001
+
+  mongo:
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    ports:
+      - 27017:27017
+
+networks:
+  api_server_default:
