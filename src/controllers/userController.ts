@@ -1,6 +1,6 @@
-import { Request, Response } from "express";
+import { Request, response, Response } from "express";
 import { now } from "mongoose";
-import IUser from "../interface/user";
+import IUser from "../interfaces/user";
 import { User } from "../models/user";
 
 export const loginUser = async (req: Request, resp: Response) => {
@@ -27,9 +27,14 @@ export const createUser = async (req: Request, resp: Response) => {
       url_img: user.url_img,
       created_at: now().toDateString(),
     });
+    await newUser.save();
 
     resp.json({ msg: "User create succefully", user: newUser });
   } catch (error) {
     resp.status(500).json({ msg: "Error to create User" });
   }
+};
+
+export const whoami = (req: Request, resp: Response) => {
+  return resp.json({ msg: "User Whoami Method" });
 };

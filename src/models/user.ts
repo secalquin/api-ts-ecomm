@@ -22,9 +22,8 @@ const userSchema = new mongoose.Schema({
   updated_at: {
     type: String,
     required: true,
+    default: now().toDateString(),
   },
 });
 
-const User = mongoose.model("User", userSchema);
-
-export { User };
+export const User = mongoose.model("User", userSchema);
