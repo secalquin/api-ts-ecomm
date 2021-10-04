@@ -8,13 +8,9 @@ export const loginUser = async (req: Request, resp: Response) => {
 };
 
 export const todoUser = async (req: Request, resp: Response) => {
-  User.find({}, function (err, result) {
-    if (err) {
-      console.log(err);
-    } else {
-      resp.json(result);
-    }
-  });
+  const users = await User.find({});
+
+  resp.json({ msg: "Get all users", data: users });
 };
 
 export const createUser = async (req: Request, resp: Response) => {
@@ -24,14 +20,14 @@ export const createUser = async (req: Request, resp: Response) => {
     const newUser = new User({
       username: user.email,
       password: user.password,
-      url_img: user.url_img,
+      email: user.email,
       created_at: now().toDateString(),
+      updated_at: now().toDateString(),
     });
     await newUser.save();
-
-    resp.json({ msg: "User create succefully", user: newUser });
-  } catch (error) {
-    resp.status(500).json({ msg: "Error to create User" });
+    resp.json({ msg: "User create succefully", newUser });
+  } catch (error: any) {
+    resp.status(400).json({ msg: error.message });
   }
 };
 

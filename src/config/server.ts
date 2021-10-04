@@ -3,7 +3,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 
 import Routes from "./routes";
-import mongoDBConnect from "./mongo";
+import { mongoDBConnect } from "./mongo";
 
 //CONFIGURAR dot.env
 dotenv.config();
@@ -31,7 +31,7 @@ class Server {
   }
 
   routes(): void {
-    this.app.use('/api',Routes);
+    this.app.use("/api", Routes);
   }
 
   listen(): void {
@@ -43,6 +43,5 @@ class Server {
   async database(): Promise<void> {
     await mongoDBConnect();
   }
-
 }
 export default Server;
