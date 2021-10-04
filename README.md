@@ -55,6 +55,7 @@ Luego de ejecutar el comando veremos que se ha imprimido por consola y sin error
     ├── src
     │   └── config
     │   └── controllers
+    │   └── interfaces
     │   └── models
     │   └── routes
     ├── app.ts
