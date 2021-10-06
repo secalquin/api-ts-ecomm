@@ -1,7 +1,7 @@
 import mongoose, { now } from "mongoose";
 import IUser from "../interfaces/user";
 
-const userSchema = new mongoose.Schema({
+const userSchema = new mongoose.Schema<IUser>({
   username: {
     type: String,
     required: false,
@@ -20,18 +20,19 @@ const userSchema = new mongoose.Schema({
     required: false,
   },
   created_at: {
-    type: String,
+    type: Date,
     required: true,
+    default: Date.now,
   },
   updated_at: {
-    type: String,
+    type: Date,
     required: true,
+    default: Date.now,
   },
 });
 
 userSchema.post("save", function (error: any, doc: any, next: any) {
   if (error.name === "MongoError" && error.code === 11000) {
-    console.log(error);
     next(
       new Error(
         "El " +

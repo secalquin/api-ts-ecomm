@@ -1,16 +1,50 @@
-import { Request, response, Response } from "express";
-import { now } from "mongoose";
+import { Request, Response } from "express";
 import IUser from "../interfaces/user";
 import { User } from "../models/user";
+import jwt from "jsonwebtoken";
+import moment from "moment";
+
+const TOKEN_SECRET = process.env.TOKEN_SECRET || "SECRET";
+const TOKEN_EXPIRED = process.env.TOKEN_SECRET || "1";
+
+declare global {
+  namespace Express {
+    interface Request {
+      user: IUser;
+    }
+  }
+}
 
 export const loginUser = async (req: Request, resp: Response) => {
-  resp.json("Login Method");
+  const { email, password } = req.body;
+
+  /** */
+  if (!(email === "scalquin@sb.cl" && password === "SebA661802.")) {
+    return resp.status(401).send({
+      msg: "Usuario o contraseña inválidos",
+    });
+  }
+
+  const payload = {
+    username: "Sebastián",
+    id: "123123123",
+  };
+
+  var token = jwt.sign(payload, TOKEN_SECRET, {
+    expiresIn: moment().add(parseInt(TOKEN_EXPIRED), "hours").unix(),
+  });
+
+  resp.json({ msg: "Logged In", token });
 };
 
 export const todoUser = async (req: Request, resp: Response) => {
-  const users = await User.find({});
+  try {
+    const users = await User.find({}).select(["-password"]);
 
-  resp.json({ msg: "Get all users", data: users });
+    resp.json({ msg: "Get all users", data: users });
+  } catch (error: any) {
+    resp.status(400).json({ msg: error.message });
+  }
 };
 
 export const createUser = async (req: Request, resp: Response) => {
@@ -21,8 +55,6 @@ export const createUser = async (req: Request, resp: Response) => {
       username: user.email,
       password: user.password,
       email: user.email,
-      created_at: now().toDateString(),
-      updated_at: now().toDateString(),
     });
     await newUser.save();
     resp.json({ msg: "User create succefully", newUser });
@@ -31,6 +63,9 @@ export const createUser = async (req: Request, resp: Response) => {
   }
 };
 
-export const whoami = (req: Request, resp: Response) => {
-  return resp.json({ msg: "User Whoami Method" });
+export const whoami = async (req: Request, resp: Response) => {
+  resp.json({
+    msg: "Whoami Method",
+    user: req.user,
+  });
 };

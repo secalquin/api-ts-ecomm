@@ -4,10 +4,10 @@ import dotenv from "dotenv";
 
 import Routes from "./routes";
 import { mongoDBConnect } from "./mongo";
+import IUser from "../interfaces/user";
 
 //CONFIGURAR dot.env
 dotenv.config();
-
 class Server {
   private app: Application;
   private port: string;
