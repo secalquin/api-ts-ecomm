@@ -25,6 +25,16 @@ services:
       - 27017:27017
     volumes:
       - ./data:/usr/src/app
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./redisdata:/data
+    entrypoint: redis-server --appendonly yes
+    restart: always
+    networks:
+      - api_server_default
 
 networks:
   api_server_default:

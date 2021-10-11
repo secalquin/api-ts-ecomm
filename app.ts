@@ -4,5 +4,5 @@ const app = new Server();
 app.listen();
 
 export default {
-    app
-}
+  app,
+};

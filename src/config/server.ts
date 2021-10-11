@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 
 import Routes from "./routes";
 import { mongoDBConnect } from "./mongo";
+import { client as ClientRedis } from "./redis";
 
 //CONFIGURAR dot.env
 dotenv.config();

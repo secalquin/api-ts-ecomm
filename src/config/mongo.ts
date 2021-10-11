@@ -33,15 +33,10 @@ const mongoDBConnect = async () => {
       poolSize: parseInt(MONGO_POOLSIZE),
     })
     .then((res) => {
-      console.log(
-        "Connected to Distribution API Database - Initial Connection"
-      );
+      console.log("Connected to MongoDB");
     })
     .catch((err) => {
-      console.log(
-        `Initial Distribution API Database connection error occured -`,
-        err
-      );
+      console.log(`Connection MongoDB error occured -`, err);
     });
 };
 
