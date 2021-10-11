@@ -18,8 +18,8 @@ const client = redis.createClient({
   //password: REDIS_PASSWORD,
 });
 
-client.on("connect", () => {
-  console.log("Connected to redis");
-});
+//client.on("connect", () => {
+//  console.log("Connected to redis");
+//});
 
 export { client };

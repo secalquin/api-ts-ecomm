@@ -4,7 +4,8 @@ import dotenv from "dotenv";
 
 import Routes from "./routes";
 import { mongoDBConnect } from "./mongo";
-import { client as ClientRedis } from "./redis";
+import { client, client as ClientRedis } from "./redis";
+import morgan from "morgan";
 
 //CONFIGURAR dot.env
 dotenv.config();
@@ -17,9 +18,15 @@ class Server {
     this.port = process.env.PORT || "8000";
 
     // Métodos iniciales.
+    this.logHttpWMorgan();
     this.middlewares();
     this.routes();
     this.database();
+    this.redisDatabase();
+  }
+
+  logHttpWMorgan(): void {
+    process.env.NODE_ENV === "development" ? this.app.use(morgan("dev")) : "";
   }
 
   middlewares(): void {
@@ -42,6 +49,12 @@ class Server {
 
   async database(): Promise<void> {
     await mongoDBConnect();
+  }
+
+  redisDatabase(): void {
+    client.on("connect", () => {
+      console.log("Connected to redis");
+    });
   }
 }
 export default Server;
