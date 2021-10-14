@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 
 import Routes from "./routes";
 import { mongoDBConnect } from "./mongo";
-import { client, client as ClientRedis } from "./redis";
+import { client as ClientRedis } from "./redis";
 import morgan from "morgan";
 
 //CONFIGURAR dot.env
@@ -52,7 +52,7 @@ class Server {
   }
 
   redisDatabase(): void {
-    client.on("connect", () => {
+    ClientRedis.on("connect", () => {
       console.log("Connected to redis");
     });
   }

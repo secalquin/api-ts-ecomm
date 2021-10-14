@@ -1,5 +1,4 @@
 import redis from "redis";
-const { promisify } = require("util");
 
 const RedisConfig = {
   REDIS_HOST: process.env.REDIS_HOST || "127.0.0.1",
