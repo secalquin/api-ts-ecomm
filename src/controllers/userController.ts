@@ -16,7 +16,7 @@ declare global {
 }
 
 export const loginUser = async (req: Request, resp: Response) => {
-  const { email, password } = req.body;
+  const { email, password }: { email: string; password: string } = req.body;
 
   /** */
   if (!(email === "scalquin@sb.cl" && password === "SebA661802.")) {

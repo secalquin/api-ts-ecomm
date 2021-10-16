@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const MongooseConfig = {
-  MONGO_URL: process.env.MONGO_URL || "localhost",
+  MONGO_HOST: process.env.MONGO_HOST || "localhost",
   MONGO_PORT: process.env.MONGO_PORT || "27017",
   MONGO_DATABASE: process.env.MONGO_DATABASE || "mydatabase",
   MONGO_USERNAME: process.env.MONGO_USERNAME || "root",
@@ -10,7 +10,7 @@ const MongooseConfig = {
 };
 
 const {
-  MONGO_URL,
+  MONGO_HOST,
   MONGO_PORT,
   MONGO_DATABASE,
   MONGO_USERNAME,
@@ -18,7 +18,7 @@ const {
   MONGO_POOLSIZE,
 } = MongooseConfig;
 
-const MONGO_URI = `mongodb://${MONGO_URL}:${MONGO_PORT}/${MONGO_DATABASE}`;
+const MONGO_URI = `mongodb://${MONGO_HOST}:${MONGO_PORT}/${MONGO_DATABASE}`;
 
 const mongoDBConnect = async () => {
   await mongoose

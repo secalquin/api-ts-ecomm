@@ -8,10 +8,9 @@ const REDIS_TIME = process.env.PRODUCT_EXPIRED_TIME || 200; /*20 seg*/
 const GET_ASYNC = promisify(client.get).bind(client);
 const SET_ASYNC = promisify(client.set).bind(client);
 
-export const getAllProducts = async (resp: Response) => {
+export const getAllProducts = async (req: Request, resp: Response) => {
   try {
     const replyProducts = await GET_ASYNC("products");
-
     /**RESPONSE FROM CACHE */
     if (replyProducts)
       return resp.json({
@@ -19,8 +18,9 @@ export const getAllProducts = async (resp: Response) => {
         data: JSON.parse(replyProducts),
       });
 
-    const dataFetched = await axios.get("https://fakestoreapi.com/products");
-    const data: IProduct[] = dataFetched.data;
+    const { data }: { data: IProduct[] } = await axios.get(
+      "https://fakestoreapi.com/products"
+    );
 
     await SET_ASYNC("products", JSON.stringify(data), "EX", REDIS_TIME);
 
@@ -32,7 +32,7 @@ export const getAllProducts = async (resp: Response) => {
 
 export const findSingleProduct = async (req: Request, resp: Response) => {
   try {
-    const { id } = req.params;
+    const { id }: { id?: number } = req.params;
 
     const dataFetched = await axios.get(
       `https://fakestoreapi.com/products/${id}`
