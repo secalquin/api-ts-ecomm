@@ -40,4 +40,8 @@ const mongoDBConnect = async () => {
     });
 };
 
-export { mongoDBConnect };
+const MongooseCloseConection = async () => {
+  await mongoose.connection.close();
+};
+
+export { mongoDBConnect, MongooseCloseConection };
